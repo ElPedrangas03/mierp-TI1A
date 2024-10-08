@@ -1,0 +1,74 @@
+*
+{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+}
+
+nav
+{
+    display: flex;
+    background-color: rgb(18, 114, 69);
+    color: #fff;
+    font-weight: bold;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav > ul:first-child > li:first-child a
+{
+    font-size: 2rem;
+    padding: 0.5rem 1rem;
+    height: 3rem;
+}
+nav ul
+{
+    display: flex;
+    list-style: none;
+}
+
+nav > ul li > a
+{
+    background-color: rgb(18, 114, 69);
+}
+
+nav > ul li:hover > a
+{
+    background-color: #489b4c;
+}
+
+nav a
+{
+    display: block;
+    padding: 1rem 1.3rem;
+    cursor: pointer;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+nav li ul{
+    /*Oculta un elemento sin liberar el espacio*/
+    /*visibility: hidden;*/
+    /*Aplica un nivel de opacidad a un elemento sin liberar el espacio*/
+    /*opacity: .25;*/
+    /*Oculta un elemento y libera el espacio*/
+    display: none;
+    position: absolute;
+    flex-direction: column;
+    box-shadow: 2px 2px 3px 0 rgba(66, 177, 51, 0.5);
+}
+
+
+nav li:hover > ul {
+    display:block;
+}
+
+nav li ul li {
+    position:relative;
+}
+
+nav li ul li ul {
+    right:-140px;
+    top:0px;
+}

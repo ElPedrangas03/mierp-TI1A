@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogo</title>
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/style_catalogo.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+<nav>
+        <ul>
+            <li><a href="#">Paraiso Rangel</a></li>
+        </ul>
+        <ul>
+            
+            <li><a href="ventas.html">Venta</a>
+                <ul>
+                    <li><a href="ventas.html">Realizar venta</a></li>
+                    <li><a href="ventasRealizadas.html">Ventas realizadas</a></li>
+                </ul>
+            </li>
+            <li><a href="AdministrarUsuarios.html">Usuarios</a></li>
+            <li><a href="">Inventario</a>
+            <ul>
+                <li><a href="administrarProductos.html">Agregar inventario</a></li>
+                <li><a href="catalogo.html">Ver inventario</a></li>
+            </ul>
+            </li>
+            <li><a href="">Perfil</a>
+            <ul>
+                <li><a href="">Cerrar sesion</a></li>
+            </ul>
+            </li>
+        </ul>
+    </nav>
+    
+
+    <div id="filtrar">
+        <div>
+            <label>Buscar:</label>
+            <input type="text" id="buscar" oninput="filtrarProductos()">
+        </div>
+        <div>
+        <label>Sucursal:</label>
+            <select id="sucursalSelect" onchange="filtrarProductosPorSucursal()">
+                <option value="all">Todas las Sucursales</option>
+                    <option value="">Moroleon</option>
+            </select>
+        </div>
+    </div>
+        <div id="contenido">
+            <img src="img/fabuloso_manzana.png">
+            <div>
+                <h3>Fabuloso</h3>
+                <label id="idprod">ID: 1</label>
+                <label id="descripcion">Fabuloso</label>
+                <label id="stock">10</label>
+            </div>
+            <div>
+            <input type="button" value="Ver" data-bs-toggle="modal" data-bs-target="#modal-detalles">
+            </div>
+        </div>
+    <!-- <div id="contenido">
+        <img src="img/imagen-generica.png">
+        <div>
+            <h3>Titulo del producto</h3>
+            <label id="idprod">ID: #</label>
+            <label id="descripcion">Descripción general del producto.</label>
+            <label id="stock">Stock: #####</label>
+        </div>
+        <div>
+            <input type="button" value="Ver" data-bs-toggle="modal" data-bs-target="#modal-detalles">
+        </div>
+    </div> -->
+
+    <hr>
+    <br>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="modal-detalles" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Detalles del producto</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="detallesGlobal">
+                        <div id="detalles">
+                            <div>
+                                <img src="img/imagen-generica.png" id="imgModal">
+                                <div id="texto">
+                                    <h2 id="nombreModal">Nombre del producto</h2>
+                                    <label id="idModal">ID: #</label>
+                                    <label id="stockModal">Stock: #####</label>
+                                </div>
+                            </div>
+                            <div id="descripcionModal">
+                                <label>Descripcion general del producto.</label>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="js/catalogo.js"></script>
+    <script>
+        function cargarDatosModal(Nombre, ID, Stock, Descripcion, Imagen)
+        {
+            var nombreModal=document.getElementById("nombreModal");
+            var idModal=document.getElementById("idModal");
+            var stockModal=document.getElementById("stockModal");
+            var descripcionModal=document.getElementById("descripcionModal");
+            var imgModal=document.getElementById("imgModal");
+
+            nombreModal.textContent = Nombre;
+            idModal.textContent = "ID: " + ID;
+            stockModal.textContent = "Stock: " + Stock;
+            descripcionModal.textContent = Descripcion;
+            imgModal.src = Imagen;
+        }
+        function filtrarProductosPorSucursal() {
+        var select = document.getElementById('sucursalSelect');
+        var idSucursal = select.value;
+        var productos = document.querySelectorAll('#contenido');
+
+        productos.forEach(function(producto) {
+            if (idSucursal === 'all' || producto.getAttribute('data-sucursal') === idSucursal) {
+                producto.style.display = 'flex';
+            } else {
+                producto.style.display = 'none';
+            }
+        });
+    }
+    function filtrarProductos() {
+        var input = document.getElementById('buscar');
+        var filter = input.value.toLowerCase();
+        var productos = document.querySelectorAll('#contenido');
+
+        productos.forEach(function(producto) {
+            var nombre = producto.querySelector('h3').textContent.toLowerCase();
+
+            if (nombre.includes(filter)) {
+                producto.style.display = 'flex';
+            } else {
+                producto.style.display = 'none';
+            }
+        });
+    }
+    filtrarProductosPorSucursal();
+    </script>
+</body>
+</html>

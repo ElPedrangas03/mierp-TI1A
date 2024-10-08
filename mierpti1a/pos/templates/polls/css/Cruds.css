@@ -1,0 +1,264 @@
+h2
+{
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+/* Crud Productos */
+#tablaProductos
+{
+    display: flex;
+    justify-content: center;
+}
+
+#tablaProductos thead tr
+{
+    background-color: black;
+    color: white;
+    font-size: 1.1em;
+}
+
+#tablaProductos tbody tr:nth-child(odd)
+{
+    background-color: #f2f2f2; 
+}
+
+#tablaProductos tbody tr:nth-child(even)
+{
+    background-color: #ccc;
+}
+/* Crud usuarios */
+#tablaUsuarios
+{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+#tablaUsuarios thead tr
+{
+    background-color: black;
+    color: white;
+    font-size: 1.1em;
+    width: 100%;
+
+}
+
+#tablaUsuarios tbody tr:nth-child(odd)
+{
+    background-color: #f2f2f2; 
+}
+
+#tablaUsuarios tbody tr:nth-child(even)
+{
+    background-color: #ccc;
+}
+/* Crud Proveedores */
+#tablaProveedores
+{
+    display: flex;
+    justify-content: center;
+}
+#tablaProveedores thead tr
+{
+    background-color: black;
+    color: white;
+    font-size: 1.1em;
+}
+
+#tablaProveedores tbody tr:nth-child(odd)
+{
+    background-color: #f2f2f2; 
+}
+
+#tablaProveedores tbody tr:nth-child(even)
+{
+    background-color: #ccc;
+}
+/* ----------------------------- */
+
+/*table
+{
+    border: 0;
+    width: 90%;
+    height: 70vh;
+    margin: 0;
+    padding: 0;
+}*/
+
+img
+{
+    width: 50px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+/*tbody tr > td:nth-child(6) > div
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}*/
+#agregar
+{
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    margin-top: 10px;
+}
+/*form
+{
+    background-color: rgb(179, 176, 176);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 50vh;
+    align-items: center;
+    justify-content: center;
+}
+form div
+{
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+}
+form div label
+{
+    font-size: 20px;
+}
+form div button
+{
+    width: 50%;
+    height: 6vh;
+    cursor: pointer;
+}*/
+button[type="submit"]
+{
+    background-color: rgb(100, 231, 100);
+    border: 0;
+}
+button[type="submit"]:hover
+{
+    background-color: rgb(73, 163, 73);
+}
+/*button[type="button"]
+{
+    background-color: rgb(248, 96, 96);
+    border: 0;
+}
+button[type="button"]:hover
+{
+    background-color: rgb(182, 72, 72);
+    border: 0;
+}*/
+input, textarea
+{
+    width: 50%;
+    height: 30px;
+}
+#btnPedir, .btnRecibido, .btnAddDetalles
+{
+    width: 90%;
+    justify-content: center;
+}
+/* #btnRecibido
+{
+    width: 90%;
+    justify-content: center;
+}
+ #btnAddDetalles
+{
+    width: 90%;
+    justify-content: center;
+} */
+
+#contenidoEnd
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 50vh;
+    width: 100%;
+}
+#superiorTitulo
+{
+    border: 1px solid #000;
+    border-bottom: 0;
+    display:flex;
+    flex-direction: row;
+    padding: 10px;
+    width: 50%;
+    align-self: center;
+}
+#superiorTitulo > img
+{
+    width: 10%;
+}
+#datosFinalizar
+{
+    border: 1px solid #000;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 100%;
+    padding: 10px;
+}
+#datosFinalizar > div
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    align-self: center;
+}
+#datosFinalizar > div > label
+{
+    font-weight: bold;
+}
+
+#datosFinalizar > div > input
+{
+    width: 70%;
+}
+#btnModificar
+{
+    background-color: green;
+    color: white;
+    margin-right: 10px;
+}
+#btnCancelar
+{
+    background-color: red;
+    color: white;
+}
+#Roles, #descripcion, #correo
+{
+    width: 70%;
+}
+#filtrar
+{
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: 900;
+}
+
+form.validado input:invalid, .novalido{
+    border-color: red;
+}
+
+form.validado input:valid, .valido{
+    border-color: green;
+}
+
+form.validado input:invalid + div,
+.novalido + div{
+    display: block;
+    color: red;
+}
+
+form.validado input:valid + div,
+.valido + div{
+    display: none;
+}
