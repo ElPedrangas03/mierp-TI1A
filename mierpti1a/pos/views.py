@@ -1,5 +1,12 @@
 from django.http import HttpResponse
+from django.shortcuts import render
 
 
-def index(request):
-    return HttpResponse("Hola a todos, aqui ira la pantaglla de bienvenida del cochinero.s")
+def Ventas(request):
+    return render(request, 'pos/templates/Ventas.html')
+
+def catalago(request):
+    return render(request, 'pos/templates/catalogo.html')
+
+def administrarProductos(reques):
+    return render(reques, 'pos/templates/administrarProductos.html')

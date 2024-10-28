@@ -1,0 +1,191 @@
+#comp
+{
+    width: 100%;
+    height: 880px;
+    background: white; 
+    padding: 10px;
+    margin: auto;
+    margin-top: 30px;
+    border-radius: 4px;
+    color: Black;
+}
+#tit
+{
+    width: 1500px;
+    background: #24303c; 
+    padding: 1px;
+    margin: auto;
+    margin-top: 10px;
+    border-radius: 4px;
+    color: white;
+    font-size: 1.5em;
+}
+#izq
+{
+    height: 30%;
+    display: flex;
+    flex-wrap: wrap;
+}
+#Completo
+{
+    padding-right: 35px;
+    width: 30%;
+}
+#InfoEmp
+{
+    padding: 10px;
+}
+
+#tabla
+{
+    height: 650px;
+}
+#tblVentas
+{
+    width: 100px;
+}
+#tabla-venta {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-top: 25px;
+    max-height: 550px;
+    overflow-y: auto;
+    align-items: center;
+    text-align: center;
+}
+
+#tabla-venta table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#tabla-venta thead tr {
+    background-color: black;
+    color: white;
+    font-size: 1.1em;
+}
+
+#tabla-venta thead th {
+    padding-left: 50px;
+    padding-right: 50px;
+    text-align: center;
+}
+
+#tabla-venta tbody th {
+    width: 100px;
+}
+
+#tabla-venta tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+    text-align: center;
+}
+
+#tabla-venta tbody tr:nth-child(even) {
+    background-color: #ccc;
+    text-align: center;
+}
+
+/* Asegúrate de que todos los td del tbody estén centrados */
+#tabla-venta tbody td {
+    text-align: center;
+}
+
+
+.boton, #btnCobrar
+{
+    width: 100%;
+}
+#txtBuscar
+{
+    width: auto;
+}
+#ultimo
+{
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 40%;
+    padding-right: 10%
+}
+#total
+{
+    padding: 5px;
+}
+#totalsec
+{
+    padding-right: 20px;
+}
+#Efectivo
+{
+    text-align: center;
+    font-weight: 20px;
+    width: 300px;
+}
+#Efectivo div {
+    text-align-last: center;
+    width: 200px;
+}
+#txtEfectivo
+{
+    /*padding-left: 30px;*/
+    height: 50px;
+    width: 100px;
+}
+#cob
+{
+    padding-top: 16px;
+    width: 300px;
+}
+
+#contenidoEnd
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 50vh;
+}
+
+#datosFinalizar
+{
+    border: 1px solid #000;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 100%;
+    padding: 10px;
+}
+#datosFinalizar > div
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    align-self: center;
+}
+#datosFinalizar > div > label
+{
+    font-weight: bold;
+}
+
+#datosFinalizar > div > input
+{
+    width: 70%;
+}
+#btnFinalizar
+{
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    justify-content: center;
+    background-color: rgb(41, 212, 41);
+    font-weight: bold;
+    font-size: 1.2em;
+    height: 15%;
+    border-top: 0;
+    cursor: pointer;
+}
+#btnFinalizar:hover
+{
+    background-color: rgb(21, 161, 21);
+}
+
