@@ -1,5 +1,16 @@
 from django.db import models
 
+class Producto(models.Model):
+    nombre = models.CharField(max_length=100)
+    precio_unitario = models.DecimalField(max_digits=10, decimal_places=2)
+    descuento = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
+    stock = models.PositiveIntegerField()
+    descripcion = models.TextField(blank=True, null=True)
+    sucursal = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.nombre} - {self.sucursal}"
+
 class Empleados(models.Model):
     class Rol(models.TextChoices):
         ADMINISTRADOR = 'ADM', 'Administrador'
