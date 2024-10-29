@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="css/style_login.css">
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#">Paraiso Rangel</a></li>
+        </ul>
+    </nav>
+
+    
+
+    <div id="contenedor">
+        <form method="POST">
+            <h1 id=login>Inicio de sesión</h1>
+            <img id="imagenLogin" src="img/login.png">
+            <label for="username">Nombre de usuario:</label><br>
+            <input type="text" id="txtEmail" name="txtEmail" autocomplete="off" autofocus required minlength="4" maxlength="20"><br><br>
+          
+            <label>Contraseña:</label><br>
+            <input type="password" id="txtPassword" name="txtPassword" autocomplete="off" required minlength="8" maxlength="30"><br><br>
+            <!-- <input type="submit" value="Iniciar Sesion"> -->
+            <button type="submit" id="btnAceptar">Iniciar sesion</button>
+        </form>
+        <img src="img/LoginIMG.PNG" id="imgLog">
+        <div class="container mt-5">
+        </div>
+        
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"
+        integrity="sha512-GWzVrcGlo0TxTRvz9ttioyYJ+Wwk9Ck0G81D+eO63BaqHaJ3YZX9wuqjwgfcV/MrB2PhaVX9DkYVhbFpStnqpQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>
