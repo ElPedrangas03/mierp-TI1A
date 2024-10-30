@@ -1,4 +1,7 @@
 from django.contrib import admin
-from .models import Empleados
+from .models import *
 
-admin.site.register(Empleados)
+admin.site.register(Producto)
+admin.site.register(Sucursal)
+admin.site.register(Empleado)
+admin.site.register(Venta)

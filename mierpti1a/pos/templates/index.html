@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,24 +23,30 @@
         </ul>
     </nav>
 
-    
-
     <div id="contenedor">
         <form method="POST">
-            <h1 id=login>Inicio de sesión</h1>
-            <img id="imagenLogin" src="img/login.png">
+            {% csrf_token %}
+            <h1 id="login">Inicio de sesión</h1>
+            <img id="imagenLogin" src="{% static 'img/login.png' %}" alt="Login Image">
+            
+            <!-- Mensajes de error si las credenciales son incorrectas -->
+            {% if messages %}
+                <div class="alert alert-danger">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
             <label for="username">Nombre de usuario:</label><br>
-            <input type="text" id="txtEmail" name="txtEmail" autocomplete="off" autofocus required minlength="4" maxlength="20"><br><br>
+            <input type="text" id="username" name="username" autocomplete="off" autofocus required minlength="4" maxlength="20"><br><br>
           
             <label>Contraseña:</label><br>
-            <input type="password" id="txtPassword" name="txtPassword" autocomplete="off" required minlength="8" maxlength="30"><br><br>
-            <!-- <input type="submit" value="Iniciar Sesion"> -->
-            <button type="submit" id="btnAceptar">Iniciar sesion</button>
+            <input type="password" id="password" name="password" autocomplete="off" required minlength="8" maxlength="30"><br><br>
+            
+            <button type="submit" id="btnAceptar">Iniciar sesión</button>
         </form>
-        <img src="pos\static\img\LoginIMG.PNG" id="imgLog">
-        <div class="container mt-5">
-        </div>
-        
+        <img src="{% static 'img/LoginIMG.PNG' %}" id="imgLog" alt="Login Image">
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

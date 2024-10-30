@@ -1,5 +1,7 @@
 from django.db import models
 
+
+#------------- Modelo de Productos -------------#
 class Producto(models.Model):
     nombre = models.CharField(max_length=100)
     precio_unitario = models.DecimalField(max_digits=10, decimal_places=2)
@@ -11,12 +13,14 @@ class Producto(models.Model):
     def __str__(self):
         return f"{self.nombre} - {self.sucursal}"
 
-class Empleados(models.Model):
+
+#--------------- Modelo de Empleados -------------#
+class Empleado(models.Model):
     class Rol(models.TextChoices):
         ADMINISTRADOR = 'ADM', 'Administrador'
-        EMPLEADO = 'EMP', 'Empleado'
-        GERENTE = 'GER', 'Gerente'
-        SUPERVISOR = 'SUP', 'Supervisor'
+        EMPLEADO = 'BDG', 'Empleado Bodega'
+        GERENTE = 'CAJ', 'Empleado Caja'
+        SUPERVISOR = 'GEB', 'Gerente de Bodega'
 
     class Sucursal(models.TextChoices):
         URIANGATO = 'URI', 'Uriangato'
@@ -43,3 +47,33 @@ class Empleados(models.Model):
 
     def __str__(self):
         return f'{self.rol} - {self.nombre} ({self.usuario})'
+    
+
+class Sucursal(models.Model):
+    nombre = models.CharField(max_length=100, default="NAME")
+    numTel = models.CharField(max_length=15, default="000-000-0000")
+    direccion = models.CharField(max_length=255, default="Sin dirección")
+
+
+class Venta(models.Model):
+    empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE)
+    sucursal = models.ForeignKey(Sucursal, on_delete=models.CASCADE)
+    fecha = models.DateTimeField(auto_now_add=True)
+    total = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"Venta #{self.id} - Total: {self.total}"
+
+
+class DetalleVenta(models.Model):
+    venta = models.ForeignKey(Venta, on_delete=models.CASCADE, related_name="detalles")
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cantidad = models.PositiveIntegerField()
+    precio = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.cantidad} x {self.producto.nombre} en {self.venta}"
+
+    @property
+    def subtotal(self):
+        return self.cantidad * self.precio
