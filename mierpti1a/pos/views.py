@@ -29,7 +29,7 @@ def index(request):
 # Vista para cargar las ventas realizadas
 def ventasRealizadas(request):
     if request.method == "GET":
-        ventas = list(Venta.objects.values('empleado', 'venta_no', 'productos', 'total', 'sucursal'))
+        ventas = list(Venta.objects.values('empleado', 'id', 'detalles', 'total', 'sucursal'))
         return JsonResponse(ventas, safe=False)
 
 
