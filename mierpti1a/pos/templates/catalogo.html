@@ -16,26 +16,26 @@
 <body>
     <nav>
         <ul>
-            <li><a href="#">Paraiso Rangel</a></li>
+            <li><a href="{% url 'venta' %}">Paraiso Rangel</a></li>
         </ul>
         <ul>
-            <li><a href="ventas.html">Venta</a>
+            <li><a href="{% url 'venta' %}">Venta</a>
                 <ul>
-                    <li><a href="ventas.html">Realizar venta</a></li>
-                    <li><a href="ventasRealizadas.html">Ventas realizadas</a></li>
+                    <li><a href="{% url 'venta' %}">Realizar venta</a></li>
+                    <li><a href="{% url 'ventas' %}">Ventas realizadas</a></li>
                 </ul>
             </li>
             <li><a href="AdministrarUsuarios.html">Usuarios</a></li>
             <li><a href="">Inventario</a>
-            <ul>
-                <li><a href="administrarProductos.html">Agregar inventario</a></li>
-                <li><a href="catalogo.html">Ver inventario</a></li>
-            </ul>
+                <ul>
+                    <li><a href="{% url 'administrarProductos' %}">Agregar inventario</a></li>
+                    <li><a href="{% url 'catalogo' %}">Ver inventario</a></li>
+                </ul>
             </li>
             <li><a href="">Perfil</a>
-            <ul>
-                <li><a href="">Cerrar sesion</a></li>
-            </ul>
+                <ul>
+                    <li><a href="">Cerrar sesión</a></li>
+                </ul>
             </li>
         </ul>
     </nav>

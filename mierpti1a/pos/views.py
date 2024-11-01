@@ -1,60 +1,70 @@
 import json
+from .models import *
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .models import *
+
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.db import transaction   
 
+###### Vista de Inicio de secion con identificacion implementada con Django y su funcion Autenticate ######
 def index(request):
     if request.method == 'POST':
-        # Recibir los datos del formulario
         username = request.POST['username']
         password = request.POST['password']
 
-        # Autenticar al usuario
         user = authenticate(request, username=username, password=password)
         
         if user is not None:
-            # Iniciar sesión y redirigir a ventas
             login(request, user)
-            return redirect('ventas')  # Cambia 'ventas' por el nombre de tu URL de ventas
+            return redirect('ventas')
         else:
-            # Enviar mensaje de error
             messages.error(request, 'Credenciales incorrectas. Inténtalo de nuevo.')
 
     return render(request, 'pos/templates/index.html')
 
-# Vista para cargar las ventas realizadas
+
+######## Vistas para el funcionamiento de productos ########
+def productos(request):
+    return render(request, 'pos/templates/administrarProductos.html')
+
+def get_productos(request):
+    productos = list(Producto.objects.values())
+
+    if (len(productos)>0):
+        data = {'message':"Success", 'productos':productos}
+    else:
+        data = {'message':"Not Found"}
+    
+    return JsonResponse(data)
+    
+
+
+#### Vistas para el funcionamiento de Ventas Realizadas ####
 def ventasRealizadas(request):
+    return render(request, 'pos/templates/ventasRealizadas.html')
+
+def get_ventasRealizadas(request):
     if request.method == "GET":
-        ventas = list(Venta.objects.values('empleado', 'id', 'detalles', 'total', 'sucursal'))
+        ventas = list(Venta.objects.values('empleado', 'id', 'descripcion', 'total', 'sucursal'))
         return JsonResponse(ventas, safe=False)
 
 
-#Catalago de productos disponibles en inventario.
-def catalago(request):
+###### Catalago de productos en inventario ###### 
+def catalogo(request):
     return render(request, 'pos/templates/catalogo.html')
 
-#Agregar, eliminar o editar productos que esten dentro de la base de datos.
-@csrf_exempt
-def administrarProductos(request):
-    if request.method == 'GET':
-        productos = list(Producto.objects.values())
-        return JsonResponse(productos, safe=False)
+def get_catalogo(request):
+    catalogo = list(Producto.objects.values())
+    
+    if (len(catalogo)>0):
+        data = {'message':"Success", 'catalogo':catalogo}
+    else:
+        data = {'message':"Not Found"}
+    
+    return JsonResponse(data)
 
-    elif request.method == 'POST':
-        data = json.loads(request.body)
-        producto = Producto.objects.create(
-            nombre=data['nombre'],
-            precio_unitario=data['precio_unitario'],
-            descuento=data.get('descuento', 0),
-            stock=data['stock'],
-            descripcion=data.get('descripcion', ''),
-            sucursal=data['sucursal']
-        )
-        return JsonResponse({'id': producto.id, 'status': 'Producto creado correctamente'})
 
 #Control de Usuarios 
 def administrarUsuarios(request):
@@ -123,17 +133,6 @@ def confirmar_venta(request):
                     total=sum(item['subtotal'] for item in carrito),
                     sucursal=sucursal
                 )
-                
-                # Crear detalles de venta
-                for item in carrito:
-                    producto = Producto.objects.get(id=item['producto_id'])
-                    DetalleVenta.objects.create(
-                        venta=venta,
-                        producto=producto,
-                        cantidad=item['cantidad'],
-                        subtotal=item['subtotal']
-                    )
-                
                 # Limpiar el carrito
                 del request.session['carrito']
                 request.session.modified = True

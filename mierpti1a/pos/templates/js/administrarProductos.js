@@ -98,8 +98,10 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     const tbody = document.getElementById("productos-tbody");
     
     try {
-        const response = await fetch('/administrarProductos/');
+        const response = await fetch('/productos');
         const productos = await response.json();
+
+        consolde.log("Cola");
 
         //Limpiar datos
         tbody.innerHTML = "";
@@ -147,7 +149,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
 
 async function cargarDatosProducto(id) {
     try {
-        const response = await fetch(`/obtener_producto/${id}/`);  // URL para obtener los datos del producto específico
+        const response = await fetch(`/get_productos/${id}/`);  // URL para obtener los datos del producto específico
         const producto = await response.json();
 
         document.getElementById("modalId").value = producto.id;

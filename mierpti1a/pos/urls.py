@@ -2,10 +2,16 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='login'),
-    path('ventas/', views.ventas, name='ventas'),
-    path('catalogo/', views.catalago, name='catalogo'),
-    path('administrarProductos/', views.administrarProductos, name='administrarProductos'),
-    path('administrarUsuarios/', views.administrarUsuarios, name='administrarUsuarios'),
-    path('ventasRealizadas/', views.ventasRealizadas, name='ventasRealizadas'),
+    ## Vistas HTML
+    path('', views.index, name='index'),
+    path('productos/', views.productos, name='administrarProductos'),
+    path('venta/', views.ventas, name='venta'),
+    path('ventas/', views.ventasRealizadas, name='ventas'),
+    path('catalogo/', views.catalogo, name='catalogo'),
+    
+
+    #### Get de Cosas 
+    path('get_catalogo/', views.get_catalogo, name='Ver catalago de productos'),
+    path('get_ventasRealizadas/', views.get_ventasRealizadas, name='Ver Ventas Realizadas'),
+    path('get_productos/', views.get_productos, name='Ver Productos'),
 ]
