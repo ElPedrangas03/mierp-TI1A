@@ -11,7 +11,7 @@ urlpatterns = [
     
 
     #### Get de Cosas 
-    path('get_catalogo/', views.get_catalogo, name='Ver catalago de productos'),
+    path('catalogo/get_catalogo/', views.get_catalogo, name='Ver catalago de productos'),
     path('get_ventasRealizadas/', views.get_ventasRealizadas, name='Ver Ventas Realizadas'),
-    path('get_productos/', views.get_productos, name='Ver Productos'),
+    path('productos/get_productos/', views.get_productos, name='Ver Productos'),
 ]

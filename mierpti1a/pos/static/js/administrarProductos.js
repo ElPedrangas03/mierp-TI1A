@@ -92,50 +92,215 @@ document.addEventListener("DOMContentLoaded", ()=>{
             e.preventDefault();
         }
     });
+
+    // Cargar datos desde los views de django
+    cargarProductos();
+    
     
 });
 
-function cargarDatos(ID, Nombre, Precio, Stock, Descripcion, sucursal)
+async function cargarProductos()
 {
-    var modalId=document.getElementById("modalId");
-    var modalNombre=document.getElementById("modalNombre");
-    var modalPrecio=document.getElementById("modalPrecio");
-    var modalStock=document.getElementById("modalStock");
-    var modalDescripcion=document.getElementById("modalDescripcion");
-    var modalSelect=document.getElementById("modalSelect");
-    var seccionSucursal=document.getElementById("ocultarSucursal");
-    modalId.value=ID;
-    modalNombre.value=Nombre;
-    modalPrecio.value=Precio;
-    modalStock.value=Stock;
-    modalDescripcion.value=Descripcion;
-    modalSelect.value = sucursal;
-    seccionSucursal.style.display = 'none';
-    console.log(modalSelect.value);
+    const tbody = document.getElementById("productos-tbody");
+    
+    try {
+        const response = await fetch('get_productos');
+        const productos = await response.json();
+
+        console.log("Cola");
+        console.log(productos);
+        console.log(Array.isArray(productos));
+
+        //Limpiar datos
+        tbody.innerHTML = "";
+
+        if (productos.message == "Success") {
+            productos.productos.forEach(producto => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${producto.id}</td>
+                    <td>${producto.nombre}</td>
+                    <td>${producto.precio_unitario}</td>
+                    <td>${producto.descuento}</td>
+                    <td>${producto.stock}</td>
+                    <td>${producto.descripcion}</td>
+                    <td>${producto.sucursal_id}</td>
+                    <td>
+                        <div>
+                            <button type="button" class="btn btn-primary btn-editar" data-id="${producto.id}" data-bs-toggle="modal" data-bs-target="#mdlAgregar">Editar</button>
+                            <button type="button" class="btn btn-danger btn-borrar" data-id="${producto.id}" data-bs-toggle="modal" data-bs-target="#mdlBorrar">Borrar</button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+            document.querySelectorAll(".btn-editar").forEach(button => {
+                button.addEventListener("click", function() {
+                    cargarDatosProducto(button.dataset.id);
+                });
+            });
+            document.querySelectorAll(".btn-borrar").forEach(button => {
+                button.addEventListener("click", function() {
+                    borrarProducto(button.dataset.id);
+                });
+            });
+        } else {
+            const row = document.createElement("tr");
+            row.innerHTML = `<td colspan="8">No hay productos disponibles.</td>`;
+            tbody.appendChild(row);
+        }
+    } catch (error) {
+        console.error('Error al cargar los datos:', error);
+    }
 }
-function limpiarDatos()
-{
-    var modalId=document.getElementById("modalId");
-    var modalNombre=document.getElementById("modalNombre");
-    var modalPrecio=document.getElementById("modalPrecio");
-    var modalStock=document.getElementById("modalStock");
-    var modalDescripcion=document.getElementById("modalDescripcion");
-    var modalSelect=document.getElementById("modalSelect");
-    modalId.value=0;
-    modalNombre.value="";
-    modalPrecio.value=0;
-    modalStock.value=0;
-    modalDescripcion.value="";
-    modalSelect.value = 1;
-    seccionSucursal.style.display = 'block';
+
+/*async function cargarDatosProducto(id) {
+    try {
+        const response = await fetch(`/get_productos/${id}/`);  // URL para obtener los datos del producto específico
+        const producto = await response.json();
+
+        document.getElementById("modalId").value = producto.id;
+        document.getElementById("modalNombre").value = producto.nombre;
+        document.getElementById("modalPrecio").value = producto.precio_unitario;
+        document.getElementById("modalDescuento").value = producto.descuento;
+        document.getElementById("modalStock").value = producto.stock;
+        document.getElementById("modalDescripcion").value = producto.descripcion;
+        // document.getElementById("modalSucursal").value = producto.sucursal;
+        // Voy a mover esto hasta que se arregle los views, para poder ver como cargarlo
+
+        document.getElementById("btnGuardarCambios").onclick = () => editarProducto(id);
+    } catch (error) {
+        console.error("Error al cargar los datos del producto:", error);
+    }
+}*/
+
+/*async function editarProducto(id) {
+    const producto = {
+        nombre: document.getElementById("modalNombre").value,
+        precio_unitario: document.getElementById("modalPrecio").value,
+        descuento: document.getElementById("modalDescuento").value,
+        stock: document.getElementById("modalStock").value,
+        descripcion: document.getElementById("modalDescripcion").value,
+        // sucursal: document.getElementById("productoSucursal").value
+        // Lo mismo de arriba
+    };
+
+    try {
+        // Cambiar a la url que se usara en el views de django (De preferencia recibir el id)
+        const response = await fetch(`/editar_producto/${id}/`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(producto),
+        });
+
+        if (response.ok) {
+            alert("Producto editado con éxito");
+
+            // Actualiza el DOM con los nuevos datos
+            const row = document.querySelector(`tr[data-id="${id}"]`);
+            row.innerHTML = `
+                <td>${id}</td>
+                <td>${producto.nombre}</td>
+                <td>${producto.precio_unitario}</td>
+                <td>${producto.descuento}</td>
+                <td>${producto.stock}</td>
+                <td>${producto.descripcion}</td>
+                <td>${producto.sucursal}</td>
+                <td>
+                    <div>
+                        <button type="button" class="btn btn-primary btn-editar" data-id="${id}" data-bs-toggle="modal" data-bs-target="#mdlAgregar">Editar</button>
+                        <button type="button" class="btn btn-danger btn-borrar" data-id="${id}" data-bs-toggle="modal" data-bs-target="#mdlBorrar">Borrar</button>
+                    </div>
+                </td>
+            `;
+
+            // Reagrega los event listeners a los botones de la fila
+            row.querySelector(".btn-editar").addEventListener("click", () => cargarDatosProducto(id));
+            row.querySelector(".btn-borrar").addEventListener("click", () => borrarProducto(id));
+        } else {
+            console.error("Error al editar el producto");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
 }
-function borrarDatos(ID, Nombre, nombreSucursal, idSucursal)
-{
-    var labelBorrar=document.getElementById("contenido-borrar");
-    labelBorrar.innerText="¿Realmente quieres borrar el producto "+ID+" ("+Nombre+") de la sucursal: "+
-    nombreSucursal+"?";
-    var modalId=document.getElementById("borrarId");
-    modalId.value=ID;
-    var modalIdSucursal=document.getElementById("borrarIdSucursal");
-    modalIdSucursal.value=idSucursal;
+
+async function borrarProducto(id) {
+    try {
+        // Lo mismo, redireccionar al views que borrar el producto, de preferencia, con id
+        const response = await fetch(`/borrar_producto/${id}/`, {
+            method: 'DELETE'
+        });
+
+        if (response.ok) {
+            alert("Producto borrado con éxito");
+
+            // Elimina la fila del DOM
+            const row = document.querySelector(`tr[data-id="${id}"]`);
+            if (row) row.remove();
+        } else {
+            console.error("Error al borrar el producto");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
 }
+
+
+async function agregarProducto() {
+    const producto = {
+        // Haria falta agregar el campo del id, pero eso lo checare despues su nivel de que se ocupe o algo asi
+        nombre: document.getElementById("modalNombre").value,
+        precio_unitario: document.getElementById("modalPrecio").value,
+        descuento: document.getElementById("modalDescuento").value,
+        stock: document.getElementById("modalStock").value,
+        descripcion: document.getElementById("modalDescripcion").value,
+        sucursal: document.getElementById("modalSucursal").value
+    };
+
+    try {
+        // Lo mismo, hacer la redireccion (Por ahora dejare todas asi a la brava)
+        const response = await fetch('/agregar_producto/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(producto),
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            alert("Producto agregado con éxito");
+
+            // Añadir la nueva fila al DOM
+            const row = document.createElement("tr");
+            row.dataset.id = data.id;
+            row.innerHTML = `
+                <td>${data.id}</td>
+                <td>${producto.nombre}</td>
+                <td>${producto.precio_unitario}</td>
+                <td>${producto.descuento}</td>
+                <td>${producto.stock}</td>
+                <td>${producto.descripcion}</td>
+                <td>${producto.sucursal}</td>
+                <td>
+                    <div>
+                        <button type="button" class="btn btn-primary btn-editar" data-id="${data.id}" data-bs-toggle="modal" data-bs-target="#mdlAgregar">Editar</button>
+                        <button type="button" class="btn btn-danger btn-borrar" data-id="${data.id}" data-bs-toggle="modal" data-bs-target="#mdlBorrar">Borrar</button>
+                    </div>
+                </td>
+            `;
+            document.getElementById("productos-tbody").appendChild(row);
+
+            // Agregar eventos a los botones nuevos
+            row.querySelector(".btn-editar").addEventListener("click", () => cargarDatosProducto(data.id));
+            row.querySelector(".btn-borrar").addEventListener("click", () => borrarProducto(data.id));
+        } else {
+            console.error("Error al agregar el producto");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}*/

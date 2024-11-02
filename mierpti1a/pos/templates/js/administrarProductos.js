@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", async ()=>{
+document.addEventListener("DOMContentLoaded", ()=>{
     setTimeout(function() {
         var alertElements = document.querySelectorAll('.alert-dismissible');
         alertElements.forEach(function(alertElement) {
@@ -94,11 +94,17 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     });
 
     // Cargar datos desde los views de django
+    cargarProductos();
+    
+    
+});
 
+async function cargarProductos()
+{
     const tbody = document.getElementById("productos-tbody");
     
     try {
-        const response = await fetch('/productos');
+        const response = await fetch('/get_productos');
         const productos = await response.json();
 
         consolde.log("Cola");
@@ -144,10 +150,9 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     } catch (error) {
         console.error('Error al cargar los datos:', error);
     }
-    
-});
+}
 
-async function cargarDatosProducto(id) {
+/*async function cargarDatosProducto(id) {
     try {
         const response = await fetch(`/get_productos/${id}/`);  // URL para obtener los datos del producto específico
         const producto = await response.json();
@@ -165,9 +170,9 @@ async function cargarDatosProducto(id) {
     } catch (error) {
         console.error("Error al cargar los datos del producto:", error);
     }
-}
+}*/
 
-async function editarProducto(id) {
+/*async function editarProducto(id) {
     const producto = {
         nombre: document.getElementById("modalNombre").value,
         precio_unitario: document.getElementById("modalPrecio").value,
@@ -296,4 +301,4 @@ async function agregarProducto() {
     } catch (error) {
         console.error("Error:", error);
     }
-}
+}*/
